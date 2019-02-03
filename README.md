@@ -34,10 +34,10 @@ flask run
 
 ##### Main notes: 
 
-#####- 'methods' - method of HTTP request; 
-#####- 'param' - parameter; 
-#####- 'body' - body of request, example of JSON data; 
-#####- '@token_required' - decorator: needed login procedure through '/login' route and setting new generated token to 'x-access-token' header.
+##### 'methods' - method of HTTP request; 
+##### 'param' - parameter; 
+##### 'body' - body of request, example of JSON data; 
+##### '@token_required' - decorator: needed login procedure through '/login' route and setting new generated token to 'x-access-token' header.
 ### Routes:
 
 ##### 1. Get all users:
