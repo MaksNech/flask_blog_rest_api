@@ -31,7 +31,7 @@ flask run
 ```
 
 ## 3: API
-
+##### Admin login info: username = admin, password = 123
 ##### Main notes: 
 
 ##### 'methods' - method of HTTP request; 
