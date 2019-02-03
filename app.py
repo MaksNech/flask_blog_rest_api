@@ -98,6 +98,10 @@ def token_required(f):
 
 
 # Begin Routes/Views: ##################################################################################################
+@app.route('/', methods=['GET'])
+def index():
+    result = {"msg": "Welcome to Flask Blog RESTfull App!"}
+    return jsonify(result)
 # Begin User bundle: ###################################################################################################
 @app.route('/user', methods=['GET'])
 @token_required
