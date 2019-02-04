@@ -32,7 +32,7 @@ flask run
 
 ## 3: API
 ##### Admin login info: username = admin, password = 123
-##### If you want to change Admin login info: open 'app.py', change values in the line 91: "create_admin_first_time('admin', '123')". 
+##### If you want to change Admin login info: open 'app.py', change values in the line 91: "create_admin_first_time('admin', '123')", delete all admins user from db and restart app.
 ##### Main notes: 
 
 ##### 'methods' - method of HTTP request; 
