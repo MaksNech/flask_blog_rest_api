@@ -3,7 +3,7 @@ import datetime
 import uuid
 import jwt
 from functools import wraps
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, current_app
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -75,6 +75,22 @@ posts_schema = PostSchema(many=True)
 
 # End Classes/Models ###################################################################################################
 
+# Create Admin User for the first time
+def create_admin_first_time(username, password):
+    data = {"username": username, "password": password}
+    hashed_password = generate_password_hash(data['password'], method='sha256')
+    new_user = User(public_id=str(uuid.uuid4()), username=data['username'], password=hashed_password, admin=True)
+    db.session.add(new_user)
+    db.session.commit()
+
+
+# Init Admin User:
+admin_user = User.query.filter_by(admin=True).first()
+
+if not admin_user:
+    create_admin_first_time('admin', '123')
+
+
 # Token decorator
 def token_required(f):
     @wraps(f)
@@ -102,6 +118,8 @@ def token_required(f):
 def index():
     result = {"msg": "Welcome to Flask Blog RESTfull App!"}
     return jsonify(result)
+
+
 # Begin User bundle: ###################################################################################################
 @app.route('/user', methods=['GET'])
 @token_required
@@ -130,10 +148,10 @@ def get_one_user(current_user, public_id):
 
 @app.route('/user', methods=['POST'])
 # If want to create first admin user should to comment: @token_required
-# @token_required
-def create_user():
-    # if not current_user.admin:
-    #     return jsonify({'msg': 'No rights to this action!'})
+@token_required
+def create_user(current_user):
+    if not current_user.admin:
+        return jsonify({'msg': 'No rights to this action!'})
 
     data = request.get_json()
     hashed_password = generate_password_hash(data['password'], method='sha256')
@@ -146,10 +164,10 @@ def create_user():
 
 @app.route('/user/<public_id>', methods=['PUT'])
 # If want to set admin rights to user should to comment: @token_required
-# @token_required
-def set_admin_user(public_id):
-    # if not current_user.admin:
-    #     return jsonify({'msg': 'No rights to this action!'})
+@token_required
+def set_admin_user(current_user, public_id):
+    if not current_user.admin:
+        return jsonify({'msg': 'No rights to this action!'})
 
     user = User.query.filter_by(public_id=public_id).first()
     if not user:
