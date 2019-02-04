@@ -32,7 +32,7 @@ flask run
 
 ## 3: API
 ##### Admin login info: username = admin, password = 123
-##### If you want to change Admin login info: open 'app.py', change values in the line 91: "create_admin_first_time('admin', '123')", delete all admins user from db and restart app.
+##### If you want to change Admin login info: open 'app.py', change values in the line 91: "create_admin_first_time('admin', '123')", delete all admin users from the db and restart the app.
 ##### Main notes: 
 
 ##### 'methods' - method of HTTP request; 
@@ -165,7 +165,7 @@ To show tables in db:
 ```bash
 .tables
 ```
-There should be: 'post' and 'user'.
+There should be: 'post' and 'user' tables.
    
 
 
