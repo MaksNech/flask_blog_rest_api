@@ -1,4 +1,4 @@
-# Home task 11 (Flask Blog RESTfull App. Used SQLAlchemy, Marshmallow, JWT auth)
+# Flask Blog RESTfull App. Used SQLAlchemy, Marshmallow, JWT auth.
 
 ## 1: Initial Setup
 
